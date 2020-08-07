@@ -14,11 +14,11 @@ router.get("/api/workouts",(req, res) => {
 router.put("/api/workouts/:id",(req,res) => {
     Workout.findByIdAndUpdate(
         req.params.id,
-        req.body,
+        { $push: { exercises: req.body}},
         {new: true},
         (err,data) => {
             if (err) return res.status(500).send(err);
-            return res.send(data);
+            return res.json(data);
         }
     );
 });
